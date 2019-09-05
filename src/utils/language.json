@@ -1,0 +1,203 @@
+{
+    "happy": [
+        "love",
+        "passionate about",
+        "dream",
+        "flexibility",
+        "visionary",
+        "makes a difference",
+        "dynamic",
+        "growing",
+        "committed",
+        "happy",
+        "dedicated",
+        "equal opportunity",
+        "state of the art",
+        "rare",
+        "unusual",
+        "value diversity",
+        "do not discriminate",
+        "improvement",
+        "creativity",
+        "dedicated",
+        "build",
+        "ground-breaking",
+        "growing",
+        "problem solver",
+        "craft",
+        "new technologies",
+        "data warehousing",
+        "improving",
+        "dedicatedly",
+        "initiative",
+        "improvements",
+        "new ideas"
+    ],
+    "unhappy": {
+        "enhance": "improve",
+        "increasing": "growing",
+        "ambitious": "visionary",
+        "coaching": [
+            "mentoring",
+            "mentorship"
+        ],
+        "designing": [
+            "crafing"
+        ],
+        "desire": [
+            "dream"
+        ],
+        "expanding": [
+            "fast growing",
+            "growing",
+            "rapidly growing"
+        ],
+        "commitment": [
+            "dedication"
+        ],
+        "innovative": [
+            "creative"
+        ],
+        "delighted": "happy",
+        "unique": [
+            "rare",
+            "unusual"
+        ],
+        "energetic": [
+            "high-energy",
+            "upbeat"
+        ],
+        "committed": [
+            "dedicated"
+        ],
+        "a great experience": [
+            "a magical experience"
+        ],
+        "uncommon": [
+            "rare",
+            "unusual"
+        ],
+        "a chance to build": [
+            "a chance to create"
+        ],
+        "an innovative": [
+            "a creative"
+        ],
+        "strong relationship": [
+            "positive relationships"
+        ],
+        "every day": [
+            "every single day"
+        ],
+        "create": [
+            "build",
+            "craft"
+        ],
+        "shape": [
+            "craft"
+        ],
+        "obsessed with": [
+            "passionate about"
+        ],
+        "a passion for": [
+            "a real passion for"
+        ],
+        "created": [
+            "crafted"
+        ],
+        "developing and maintaining": [
+            "designing and maintaining"
+        ],
+        "architecting": [
+            "crafting"
+        ],
+        "a varied": [
+            "a dynamic"
+        ],
+        "great ideas": [
+            "new ideas"
+        ],
+        "great communication": [
+            "superb communication"
+        ]
+    },
+    "formal": {
+        "must": null,
+        "ideal candidate": null,
+        "ought to": null,
+        "stakeholders": [
+            "partners"
+        ],
+        "strategic thinking": [
+            "critical thinking"
+        ],
+        "the candidate": [
+            "you"
+        ],
+        "the applicant": [
+            "you"
+        ],
+        "successful applicants": [
+            "you"
+        ],
+        "candidates must be": [
+            "you are"
+        ],
+        "ideally candidates": null,
+        "you must have": [
+            "you have"
+        ],
+        "trouble shooting": [
+            "fixing problems",
+            "solving problems"
+        ],
+        "escalation": [
+            "issue",
+            "blocking issue",
+            "critical issue",
+            "customer concern",
+            "partner concern"
+        ],
+        "candidates": null,
+        "a must": null,
+        "a best": [
+            "the best"
+        ],
+        "right candidate": null,
+        "on a daily basis": [
+            "daily",
+            "everyday"
+        ],
+        "cross-functional": [
+            "multi-functional"
+        ],
+        "proactively": null,
+        "best practice": [
+            "standard methodology"
+        ],
+        "are managed": null,
+        "is properly monitored": null,
+        "comply with": [
+            "align with",
+            "follow",
+            "stay in sync with"
+        ],
+        "you need to": null,
+        "KPIs": [
+            "critical metrics",
+            "important metrics"
+        ],
+        "buy in": [
+            "agreement",
+            "on board",
+            "consensus"
+        ],
+        "project manager": [
+            "project coordinator"
+        ],
+        "connect with you": [
+            "chat",
+            "talk"
+        ]
+    }
+}
