@@ -25,7 +25,6 @@ class Main extends Component {
   }
 
   handleEditorChange = e => {
-    console.log('Content was updated:', e.target.getContent());
     this.setState({ html: e.target.getContent() });
   };
   onFormSubmit = async e => {
@@ -41,6 +40,7 @@ class Main extends Component {
   };
   render() {
     const { html, structureRes } = this.state;
+    console.log(this.state);
     return (
       <Container className="mt-4">
         <Row>

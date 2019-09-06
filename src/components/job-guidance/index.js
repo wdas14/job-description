@@ -41,11 +41,10 @@ const JobGuidance = ({ structureRes }) => {
     );
   }
   let headerSuggestion = null;
-  if (header || paragraph) {
+  if (!header || !paragraph) {
     headerSuggestion = (
       <li className="border border-primary list-group-item">
         <div className="font-weight-bold">
-          {' '}
           We suggest you have at least 3 x paragraphs/headers.
         </div>
       </li>
@@ -66,7 +65,7 @@ const JobGuidance = ({ structureRes }) => {
   if (Object.keys(structureRes).length) {
     structureView = (
       <div>
-        <ul classname="list-group">
+        <ul className="list-group">
           <li className="border border-primary list-group-item">
             <div className="font-weight-bold">Structure</div>
           </li>
