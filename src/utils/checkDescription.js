@@ -43,7 +43,7 @@ export function getBias(input) {
   return output;
 }
 export function getSpellingAndGrammar(input) {
-  const cleanHtml = cleanMarkup(input);
+  const cleanHtml = input;
   return fetch('http://localhost:4000/check-grammar', {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',

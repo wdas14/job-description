@@ -20,11 +20,12 @@ class Main extends Component {
       html: '',
       grammar: null,
       structureRes: {},
-      bias: null
+      bias: []
     };
   }
 
   handleEditorChange = e => {
+    console.log(e.target.getContent());
     this.setState({ html: e.target.getContent() });
   };
   onFormSubmit = async e => {
@@ -39,7 +40,7 @@ class Main extends Component {
     this.setState({ [name]: value });
   };
   render() {
-    const { html, structureRes } = this.state;
+    const { html, structureRes, bias } = this.state;
     console.log(this.state);
     return (
       <Container className="mt-4">
@@ -73,7 +74,7 @@ class Main extends Component {
             </Form>
           </Col>
           <Col md={4} className="d-flex align-items-center flex-column">
-            <JobGuidance structureRes={structureRes} />
+            <JobGuidance structureRes={structureRes} bias={bias} />
           </Col>
         </Row>
       </Container>
