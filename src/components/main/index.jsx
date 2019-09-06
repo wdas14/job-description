@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Form, Input, Button, Col, Row } from 'reactstrap';
+import { Container, Form, Button, Col, Row } from 'reactstrap';
 import { Editor } from '@tinymce/tinymce-react';
-// // Import TinyMCE
-// import tinymce from 'tinymce/tinymce';
-
-// // A theme is also required
-// import 'tinymce/themes/silver';
-
-// // Any plugins you want to use has to be imported
-// import 'tinymce/plugins/paste';
-// import 'tinymce/plugins/link';
+import JobGuidance from '../job-guidance';
 import {
   getSpellingAndGrammar,
   getBias,
@@ -20,11 +12,6 @@ require.context(
   true,
   /.*/
 );
-// // Initialize the app
-// tinymce.init({
-//   selector: 'tiny-mc',
-//   plugins: ['paste', 'link']
-// });
 
 class Main extends Component {
   constructor(props) {
@@ -32,13 +19,14 @@ class Main extends Component {
     this.state = {
       html: '',
       grammar: null,
-      structureRes: null,
+      structureRes: {},
       bias: null
     };
   }
 
   handleEditorChange = e => {
     console.log('Content was updated:', e.target.getContent());
+    this.setState({ html: e.target.getContent() });
   };
   onFormSubmit = async e => {
     e.preventDefault();
@@ -52,48 +40,40 @@ class Main extends Component {
     this.setState({ [name]: value });
   };
   render() {
-    console.log(this.state);
-    const { html } = this.state;
+    const { html, structureRes } = this.state;
     return (
-      <Container>
+      <Container className="mt-4">
         <Row>
-          <Col>
+          <Col md={8}>
             <Form onSubmit={this.onFormSubmit}>
-              <Input
-                type="textarea"
-                name="html"
-                id="exampleText"
-                value={html}
-                onChange={this.onInputChange}
-              ></Input>
-              <Button>Done</Button>
+              <Editor
+                id="tiny-mc"
+                initialValue={html}
+                init={{
+                  // selector: 'tiny-mc',
+                  height: 500,
+                  menubar: false,
+                  plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                  ],
+                  toolbar:
+                    'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                  content_css: [
+                    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                    '//www.tiny.cloud/css/codepen.min.css'
+                  ]
+                }}
+                onChange={this.handleEditorChange}
+              />
+              <Button color="primary" className="d-block mx-auto mt-3">
+                Check out our suggestions
+              </Button>
             </Form>
           </Col>
-          <Col>PlaceHolder</Col>
-        </Row>
-        <Row>
-          <Col>
-            <Editor
-              id="tiny-mc"
-              initialValue="<p>This is the initial content of the editor</p>"
-              init={{
-                // selector: 'tiny-mc',
-                height: 500,
-                menubar: false,
-                plugins: [
-                  'advlist autolink lists link image charmap print preview anchor',
-                  'searchreplace visualblocks code fullscreen',
-                  'insertdatetime media table paste code help wordcount'
-                ],
-                toolbar:
-                  'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-                content_css: [
-                  '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-                  '//www.tiny.cloud/css/codepen.min.css'
-                ]
-              }}
-              onChange={this.handleEditorChange}
-            />
+          <Col md={4} className="d-flex align-items-center flex-column">
+            <JobGuidance structureRes={structureRes} />
           </Col>
         </Row>
       </Container>
