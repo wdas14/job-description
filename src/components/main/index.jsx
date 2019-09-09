@@ -17,7 +17,8 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      html: '',
+      html:
+        'The boy go too schoo yesterday to contribute to a competitive environment and enforce kindness',
       grammar: null,
       structureRes: {},
       bias: {}
@@ -25,22 +26,48 @@ class Main extends Component {
   }
 
   handleEditorChange = e => {
+    console.log(e);
     this.setState({ html: e.target.getContent() });
   };
+
   onFormSubmit = async e => {
     e.preventDefault();
     const { html } = this.state;
     const structureRes = structure.init(html);
     const bias = getBias(html);
     const grammar = await getSpellingAndGrammar(html);
-    this.setState({ structureRes, bias, grammar });
+    const newHtml = this.highlightBias(html, bias);
+    console.log('newHTML', newHtml);
+    this.setState({ structureRes, bias, grammar, html: newHtml });
+    // this.handleEditorChange({
+    //   traget: {
+    //     getContent: () => newHtml
+    //   }
+    // });
+  };
+
+  highlightBias = (html, bias) => {
+    const biasWords = [
+      ...Object.keys(bias.proMen),
+      ...Object.keys(bias.proWomen)
+    ];
+
+    biasWords.forEach(word => {
+      html = html.replace(
+        word,
+        `<span style="background-color: #f1c40f;">${word}</span>`
+      );
+    });
+
+    return html;
   };
   onInputChange = ({ target: { value, name } }) => {
     this.setState({ [name]: value });
   };
+
   render() {
     const { html, structureRes, bias } = this.state;
-    console.log(this.state);
+    console.log(html);
     return (
       <Container className="mt-4">
         <Row>
@@ -48,7 +75,7 @@ class Main extends Component {
             <Form onSubmit={this.onFormSubmit}>
               <Editor
                 id="tiny-mc"
-                initialValue={html}
+                value={html}
                 init={{
                   // selector: 'tiny-mc',
                   height: 500,
