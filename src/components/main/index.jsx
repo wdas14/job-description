@@ -20,19 +20,18 @@ class Main extends Component {
       html: '',
       grammar: null,
       structureRes: {},
-      bias: []
+      bias: {}
     };
   }
 
   handleEditorChange = e => {
-    console.log(e.target.getContent());
     this.setState({ html: e.target.getContent() });
   };
   onFormSubmit = async e => {
     e.preventDefault();
     const { html } = this.state;
     const structureRes = structure.init(html);
-    const bias = await getBias(html);
+    const bias = getBias(html);
     const grammar = await getSpellingAndGrammar(html);
     this.setState({ structureRes, bias, grammar });
   };

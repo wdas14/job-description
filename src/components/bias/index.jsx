@@ -2,23 +2,23 @@ import React from 'react';
 
 const Bias = ({ result }) => {
   let proMenView = null;
-  const proMenResults = result[1] ? result[1].length : null;
-  if (proMenResults) {
+  const proMenResults = result.proMen;
+  if (proMenResults && Object.keys(proMenResults).length) {
     proMenView = (
       <ul className="pl-0">
-        {result[1].map(item => {
+        {Object.keys(proMenResults).map(biasWord => {
           return (
             <li className="border border-danger list-group-item">
               <div className="font-weight-bold">
-                Pro men bias word {item.proMen[0]}
+                Pro men bias word {biasWord}
               </div>
               <div>
                 Suggestions:
-                {Array.isArray(item.proMen[1])
-                  ? item.proMen[1].reduce((acc, curr) => {
+                {Array.isArray(proMenResults[biasWord])
+                  ? proMenResults[biasWord].reduce((acc, curr) => {
                       return acc + `${curr},`;
                     }, '')
-                  : item.proMen[1]}
+                  : proMenResults[biasWord]}
               </div>
             </li>
           );
@@ -27,23 +27,23 @@ const Bias = ({ result }) => {
     );
   }
   let proWomenView = null;
-  const proWomenResults = result[0] ? result[0].length : null;
-  if (proWomenResults) {
-    proMenView = (
+  const proWomenResults = result.proWomen;
+  if (proWomenResults && Object.keys(proWomenResults).length) {
+    proWomenView = (
       <ul className="pl-0">
-        {result[0].map(item => {
+        {Object.keys(proWomenResults).map(biasWord => {
           return (
             <li className="border border-danger list-group-item">
               <div className="font-weight-bold">
-                Pro women bias word {item.proWomen[0]}
+                Pro women bias word {biasWord}
               </div>
               <div>
                 Suggestions:
-                {Array.isArray(item.proWomen[1])
-                  ? item.proWomen[1].reduce((acc, curr) => {
+                {Array.isArray(proWomenResults[biasWord])
+                  ? proWomenResults[biasWord].reduce((acc, curr) => {
                       return acc + `${curr},`;
                     }, '')
-                  : item.proWomen[1]}
+                  : proWomenResults[biasWord]}
               </div>
             </li>
           );
@@ -52,7 +52,7 @@ const Bias = ({ result }) => {
     );
   }
   let biasView = null;
-  if (result.length) {
+  if (proWomenView || proMenView) {
     biasView = (
       <div className="w-100">
         <ul className="list-group pl-0">
@@ -65,7 +65,6 @@ const Bias = ({ result }) => {
       </div>
     );
   }
-
   return <>{biasView}</>;
 };
 

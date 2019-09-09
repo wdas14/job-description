@@ -1,5 +1,5 @@
 import sw from './stopword';
-import biases from './bias';
+import bias from './bias';
 const re = {
   p: /<p>(.*?)<\/p>/g,
   li: /<li>(.*?)<\/li>/g,
@@ -11,37 +11,55 @@ const re = {
 export const cleanMarkup = string =>
   string.replace(re.markup, '').replace(/\n/g, ' ');
 
-export function findBias(objBiases, words, type) {
-  let found = [];
-  const biases = Object.keys(objBiases);
-  for (let x = 0, xMax = biases.length; x < xMax; x++) {
-    let biasKey = biases[x];
-    let bias = objBiases[biasKey];
-    for (let i = 0, iMax = words.length; i < iMax; i++) {
-      let word = words[i];
-      const b = {};
-      word = word.replace(/[\n\r]+/g, '');
-      word = word.replace(/\./g, '');
-      if (word === biasKey) {
-        b[type] = [word, bias];
-        found.push(b);
-      }
+export const getBias = text => {
+  const words = cleanMarkup(text).split(' ');
+  const response = {
+    proWomen: {},
+    proMen: {}
+  };
+  for (let x = 0; x < words.length; x++) {
+    const curr = words[x];
+    if (bias.proMen[curr]) {
+      response.proMen[curr] = bias.proMen[curr];
+    }
+    if (bias.proWomen[curr]) {
+      response.proWomen[curr] = bias.proWomen[curr];
     }
   }
-  return found;
-}
-export function getBias(input) {
-  const cleanHtml = cleanMarkup(input);
-  const output = [];
-  const words = cleanHtml.split(' ');
-  const cleanWords = sw.removeStopwords(words);
-  Object.keys(biases).forEach(function(key) {
-    const bias = biases[key];
-    const found = findBias(bias, cleanWords, key);
-    output.push(found);
-  });
-  return output;
-}
+  return response;
+};
+// export function findBias(objBiases, words, type) {
+//   let found = [];
+//   const biases = Object.keys(objBiases);
+//   for (let x = 0, xMax = biases.length; x < xMax; x++) {
+//     let biasKey = biases[x];
+//     let bias = objBiases[biasKey];
+//     for (let i = 0, iMax = words.length; i < iMax; i++) {
+//       let word = words[i];
+//       const b = {};
+//       word = word.replace(/[\n\r]+/g, '');
+//       word = word.replace(/\./g, '');
+//       if (word === biasKey) {
+//         b[type] = [word, bias];
+
+//         found.push(b);
+//       }
+//     }
+//   }
+//   return found;
+// }
+// export function getBias(input) {
+//   const cleanHtml = cleanMarkup(input);
+//   const output = [];
+//   const words = cleanHtml.split(' ');
+//   const cleanWords = sw.removeStopwords(words);
+//   Object.keys(biases).forEach(function(key) {
+//     const bias = biases[key];
+//     const found = findBias(bias, cleanWords, key);
+//     output.push(found);
+//   });
+//   return output;
+// }
 export function getSpellingAndGrammar(input) {
   const cleanHtml = input;
   return fetch('http://localhost:4000/check-grammar', {

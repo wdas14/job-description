@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import Structure from '../structure';
 import Bias from '../bias';
