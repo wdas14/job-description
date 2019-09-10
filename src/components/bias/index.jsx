@@ -1,24 +1,50 @@
 import React from 'react';
+import './styles.css';
 
-const Bias = ({ result }) => {
+const Bias = ({ result, acceptSuggestion, removeSuggestion }) => {
   let proMenView = null;
+
   const proMenResults = result.proMen;
   if (proMenResults && Object.keys(proMenResults).length) {
     proMenView = (
       <ul className="pl-0">
         {Object.keys(proMenResults).map(biasWord => {
+          let suggestions = null;
+
+          if (Array.isArray(proMenResults[biasWord])) {
+            suggestions = proMenResults[biasWord].reduce((acc, curr) => {
+              acc.push(
+                <span
+                  key={curr}
+                  className="suggestion"
+                  onClick={() => acceptSuggestion(biasWord, curr)}
+                >
+                  {curr}
+                </span>
+              );
+              return acc;
+            }, []);
+          } else {
+            suggestions = (
+              <span
+                className="suggestion"
+                onClick={() =>
+                  acceptSuggestion(biasWord, proMenResults[biasWord])
+                }
+              >
+                {proMenResults[biasWord]}
+              </span>
+            );
+          }
           return (
             <li className="border border-danger list-group-item">
-              <div className="font-weight-bold">
-                Pro men bias word {biasWord}
+              <div onClick={() => removeSuggestion(biasWord)}>Ignore</div>
+              <div>
+                <strong>{biasWord}</strong>(pro men)
               </div>
               <div>
-                Suggestions:
-                {Array.isArray(proMenResults[biasWord])
-                  ? proMenResults[biasWord].reduce((acc, curr) => {
-                      return acc + `${curr},`;
-                    }, '')
-                  : proMenResults[biasWord]}
+                <i>Suggestions:</i>
+                {suggestions}
               </div>
             </li>
           );
@@ -32,18 +58,42 @@ const Bias = ({ result }) => {
     proWomenView = (
       <ul className="pl-0">
         {Object.keys(proWomenResults).map(biasWord => {
+          let suggestions = null;
+
+          if (Array.isArray(proWomenResults[biasWord])) {
+            suggestions = proWomenResults[biasWord].reduce((acc, curr) => {
+              acc.push(
+                <span
+                  key={curr}
+                  className="suggestion"
+                  onClick={() => acceptSuggestion(biasWord, curr)}
+                >
+                  {curr}
+                </span>
+              );
+              return acc;
+            }, []);
+          } else {
+            suggestions = (
+              <span
+                className="suggestion"
+                onClick={() =>
+                  acceptSuggestion(biasWord, proMenResults[biasWord])
+                }
+              >
+                {proWomenResults[biasWord]}
+              </span>
+            );
+          }
           return (
             <li className="border border-danger list-group-item">
-              <div className="font-weight-bold">
-                Pro women bias word {biasWord}
+              <div onClick={() => removeSuggestion(biasWord)}>Ignore</div>
+              <div>
+                <strong>{biasWord}</strong>(pro women)
               </div>
               <div>
-                Suggestions:
-                {Array.isArray(proWomenResults[biasWord])
-                  ? proWomenResults[biasWord].reduce((acc, curr) => {
-                      return acc + `${curr},`;
-                    }, '')
-                  : proWomenResults[biasWord]}
+                <i>Suggestions:</i>
+                {suggestions}
               </div>
             </li>
           );

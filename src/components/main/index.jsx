@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Form, Button, Col, Row } from 'reactstrap';
 import { Editor } from '@tinymce/tinymce-react';
-import JobGuidance from '../job-guidance';
+import Structure from '../structure';
+import Bias from '../bias';
 import {
   getSpellingAndGrammar,
   getBias,
@@ -26,10 +27,29 @@ class Main extends Component {
   }
 
   handleEditorChange = e => {
-    console.log(e);
     this.setState({ html: e.target.getContent() });
   };
 
+  removeBiasSuggestion = wordToReplace => {
+    const { bias } = this.state;
+    const newBiasObj = { ...bias };
+    if (newBiasObj.proMen[wordToReplace]) {
+      delete newBiasObj.proMen[wordToReplace];
+    }
+    if (newBiasObj.proWomen[wordToReplace]) {
+      delete newBiasObj.proWomen[wordToReplace];
+    }
+    this.setState({ bias: newBiasObj });
+  };
+  acceptBiasSuggestion = (wordToReplace, suggestion) => {
+    const { html } = this.state;
+    const pattern = new RegExp(
+      `<span style="background-color: #f1c40f;">${wordToReplace}</span>`
+    );
+    const updatedHtml = html.replace(pattern, suggestion);
+    this.removeBiasSuggestion(wordToReplace);
+    this.setState({ html: updatedHtml });
+  };
   onFormSubmit = async e => {
     e.preventDefault();
     const { html } = this.state;
@@ -37,13 +57,7 @@ class Main extends Component {
     const bias = getBias(html);
     const grammar = await getSpellingAndGrammar(html);
     const newHtml = this.highlightBias(html, bias);
-    console.log('newHTML', newHtml);
     this.setState({ structureRes, bias, grammar, html: newHtml });
-    // this.handleEditorChange({
-    //   traget: {
-    //     getContent: () => newHtml
-    //   }
-    // });
   };
 
   highlightBias = (html, bias) => {
@@ -67,7 +81,7 @@ class Main extends Component {
 
   render() {
     const { html, structureRes, bias } = this.state;
-    console.log(html);
+    console.log(bias);
     return (
       <Container className="mt-4">
         <Row>
@@ -77,13 +91,14 @@ class Main extends Component {
                 id="tiny-mc"
                 value={html}
                 init={{
-                  // selector: 'tiny-mc',
+                  browser_spellcheck: true,
                   height: 500,
                   menubar: false,
                   plugins: [
                     'advlist autolink lists link image charmap print preview anchor',
                     'searchreplace visualblocks code fullscreen',
                     'insertdatetime media table paste code help wordcount'
+                    // 'tinymcespellchecker en'
                   ],
                   toolbar:
                     'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
@@ -100,7 +115,13 @@ class Main extends Component {
             </Form>
           </Col>
           <Col md={4} className="d-flex align-items-center flex-column">
-            <JobGuidance structureRes={structureRes} bias={bias} />
+            <h4 className="d-block">Job Guidance</h4>
+            <Structure result={structureRes} />
+            <Bias
+              result={bias}
+              acceptSuggestion={this.acceptBiasSuggestion}
+              removeSuggestion={this.removeBiasSuggestion}
+            />
           </Col>
         </Row>
       </Container>

@@ -1,0 +1,10 @@
+.suggestion {
+  margin-left: 2px;
+  margin-right: 2px;
+  display: block;
+}
+.suggestion:hover,
+.suggestion:active {
+  cursor: pointer;
+  text-decoration-line: underline;
+}
