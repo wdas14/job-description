@@ -15,7 +15,8 @@
     "uuid": "^3.3.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node index.js",
+    "start:client": "react-scripts start",
     "start:watch": "node ./node_modules/npm-run-all/bin/npm-run-all/index.js -c --parallel  start server:watch",
     "server:watch": "node ./node_modules/nodemon/bin/nodemon.js index.js",
     "build": "react-scripts build",
