@@ -8,3 +8,13 @@
   cursor: pointer;
   text-decoration-line: underline;
 }
+
+.xIcon {
+  position: absolute;
+  right: 3px;
+  top: 2px;
+}
+.xIcon:hover,
+.xIcon:active {
+  cursor: pointer;
+}

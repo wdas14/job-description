@@ -117,11 +117,7 @@ class Main extends Component {
           <Col md={4} className="d-flex align-items-center flex-column">
             <h4 className="d-block">Job Guidance</h4>
             <Structure result={structureRes} />
-            <Bias
-              result={bias}
-              acceptSuggestion={this.acceptBiasSuggestion}
-              removeSuggestion={this.removeBiasSuggestion}
-            />
+            <Bias result={bias} acceptSuggestion={this.acceptBiasSuggestion} />
           </Col>
         </Row>
       </Container>
