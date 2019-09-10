@@ -1,10 +1,15 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const https = require('https');
 const path = require('path');
+const helmet = require('helmet');
+const compression = require('compression');
 const app = express();
 const port = 4000;
 
+app.use(helmet());
+app.use(compression());
 app.use(bodyParser.json());
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -16,7 +21,7 @@ const checkGrammar = (req, res) => {
   const { text } = req.body;
   let host = 'api.cognitive.microsoft.com';
   let path = '/bing/v7.0/spellcheck';
-  let key = '3975d787cceb4190b2926aee1436d35f';
+  let key = process.env.GRAMMAR_KEY;
   let mkt = 'en-US';
   let mode = 'proof';
   let query_string = '?mkt=' + mkt + '&mode=' + mode;
