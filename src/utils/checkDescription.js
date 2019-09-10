@@ -62,7 +62,7 @@ export const getBias = text => {
 // }
 export function getSpellingAndGrammar(input) {
   const cleanHtml = input;
-  return fetch('http://localhost:4000/check-grammar', {
+  return fetch('/check-grammar', {
     headers: { 'Content-Type': 'application/json' },
     method: 'POST',
     body: JSON.stringify({ text: cleanHtml })

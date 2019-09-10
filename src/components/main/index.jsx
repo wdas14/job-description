@@ -10,11 +10,11 @@ import {
   structure
 } from '../../utils/checkDescription';
 import './styles.css';
-require.context(
-  'file-loader?name=[path][name].[ext]&context=node_modules/tinymce!tinymce/skins',
-  true,
-  /.*/
-);
+// require.context(
+//   'file-loader?name=[path][name].[ext]&context=node_modules/tinymce!tinymce/skins',
+//   true,
+//   /.*/
+// );
 
 class Main extends Component {
   constructor(props) {
