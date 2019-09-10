@@ -21,7 +21,7 @@ class Main extends Component {
     super(props);
     this.state = {
       html:
-        'The boy go too schoo yesterday to contribute to a competitive environment and enforce kindness',
+        'The boy go too schoo yesterday to contribute to a competitive environment and enforce kindness .',
       grammar: null,
       structureRes: {},
       bias: {},
@@ -138,7 +138,7 @@ class Main extends Component {
                 }}
                 onChange={this.handleEditorChange}
               />
-              <Button color="primary" className="d-block mx-auto mt-3">
+              <Button color="secondary" className="d-block mx-auto mt-3">
                 Check out our suggestions
               </Button>
             </Form>

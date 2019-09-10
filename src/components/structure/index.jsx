@@ -1,4 +1,7 @@
 import React from 'react';
+import classnames from 'classnames';
+import FileText from 'react-feather/dist/icons/file-text';
+import './styles.css';
 
 const Structure = ({ result }) => {
   const { listPercentage, sentenceCountAverage, structure, wordCount } = result;
@@ -12,7 +15,7 @@ const Structure = ({ result }) => {
   let listSuggestion = null;
   if (listPercentage <= 33 || listPercentage >= 45) {
     listSuggestion = (
-      <li className="border border-primary list-group-item">
+      <li className={classnames('list-group-item', 'structureItem')}>
         <div className="font-weight-bold">
           Current list percentage: {listPercentage}
         </div>
@@ -25,7 +28,7 @@ const Structure = ({ result }) => {
   let sentenceCountSuggestion = null;
   if (sentenceCountAverage <= 13) {
     sentenceCountSuggestion = (
-      <li className="border border-primary list-group-item">
+      <li className={classnames('list-group-item', 'structureItem')}>
         <div className="font-weight-bold">
           Current sentence word count: {sentenceCountAverage}
         </div>
@@ -38,7 +41,7 @@ const Structure = ({ result }) => {
   let headerSuggestion = null;
   if (!header || !paragraph) {
     headerSuggestion = (
-      <li className="border border-primary list-group-item">
+      <li className={classnames('list-group-item', 'structureItem')}>
         <div className="font-weight-bold">
           We suggest you have at least 3 x paragraphs/headers.
         </div>
@@ -48,7 +51,7 @@ const Structure = ({ result }) => {
   let wordCountSuggestion = null;
   if (wordCount < 700) {
     wordCountSuggestion = (
-      <li className="border border-primary list-group-item">
+      <li className={classnames('list-group-item', 'structureItem')}>
         <div className="font-weight-bold">Current word count: {wordCount}</div>
         <div>
           We suggest you have at least 700 words in your job description.
@@ -61,8 +64,11 @@ const Structure = ({ result }) => {
     structureView = (
       <div className="w-100">
         <ul className="list-group">
-          <li className="border border-primary list-group-item">
-            <div className="font-weight-bold">Structure</div>
+          <li className="list-group-item border-0">
+            <FileText />
+            <div className="font-weight-bold d-inline-block ml-1">
+              Structure
+            </div>
           </li>
           {listSuggestion}
           {sentenceCountSuggestion}
