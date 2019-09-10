@@ -1,5 +1,7 @@
 import React from 'react';
 import X from 'react-feather/dist/icons/x';
+import Globe from 'react-feather/dist/icons/globe';
+import classnames from 'classnames';
 import './styles.css';
 
 const Bias = ({ result, acceptSuggestion }) => {
@@ -30,7 +32,12 @@ const Bias = ({ result, acceptSuggestion }) => {
           );
         }
         return (
-          <li className="border border-warning list-group-item position-relative">
+          <li
+            className={classnames(
+              'list-group-item position-relative',
+              'biasItem'
+            )}
+          >
             <X
               onClick={() => acceptSuggestion(biasWord, biasWord)}
               className="xIcon"
@@ -62,9 +69,10 @@ const Bias = ({ result, acceptSuggestion }) => {
   if (proWomenView || proMenView) {
     biasView = (
       <div className="w-100">
-        <ul className="list-group pl-0">
-          <li className="border border-warning list-group-item">
-            <div className="font-weight-bold">Bias Words</div>
+        <ul className="pl-0">
+          <li className="list-group-item border-0">
+            <Globe />
+            <div className="font-weight-bold d-inline-block ml-1">Language</div>
           </li>
           {proMenView}
           {proWomenView}

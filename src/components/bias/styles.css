@@ -11,10 +11,14 @@
 
 .xIcon {
   position: absolute;
-  right: 3px;
-  top: 2px;
+  right: 5px;
+  top: 5px;
 }
 .xIcon:hover,
 .xIcon:active {
   cursor: pointer;
+}
+
+.biasItem {
+  border-top: 3px solid #f1c40f;
 }

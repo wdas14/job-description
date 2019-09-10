@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Form, Button, Col, Row } from 'reactstrap';
 import { Editor } from '@tinymce/tinymce-react';
+import classnames from 'classnames';
 import Structure from '../structure';
 import Bias from '../bias';
 import {
@@ -8,6 +9,7 @@ import {
   getBias,
   structure
 } from '../../utils/checkDescription';
+import './styles.css';
 require.context(
   'file-loader?name=[path][name].[ext]&context=node_modules/tinymce!tinymce/skins',
   true,
@@ -22,7 +24,8 @@ class Main extends Component {
         'The boy go too schoo yesterday to contribute to a competitive environment and enforce kindness',
       grammar: null,
       structureRes: {},
-      bias: {}
+      bias: {},
+      showJobGuidance: false
     };
   }
 
@@ -57,7 +60,13 @@ class Main extends Component {
     const bias = getBias(html);
     const grammar = await getSpellingAndGrammar(html);
     const newHtml = this.highlightBias(html, bias);
-    this.setState({ structureRes, bias, grammar, html: newHtml });
+    this.setState({
+      structureRes,
+      bias,
+      grammar,
+      html: newHtml,
+      showJobGuidance: true
+    });
   };
 
   highlightBias = (html, bias) => {
@@ -80,10 +89,30 @@ class Main extends Component {
   };
 
   render() {
-    const { html, structureRes, bias } = this.state;
-    console.log(bias);
+    const { html, structureRes, bias, showJobGuidance } = this.state;
+    let jobGuidanceView = null;
+    if (showJobGuidance) {
+      jobGuidanceView = (
+        <Col
+          md={4}
+          className={classnames(
+            'd-flex align-items-center flex-column',
+            'jobDescriptionContainer'
+          )}
+        >
+          <h4 className="d-block mt-2">Job Guidance</h4>
+          <Bias result={bias} acceptSuggestion={this.acceptBiasSuggestion} />
+          <Structure result={structureRes} />
+        </Col>
+      );
+    }
     return (
       <Container className="mt-4">
+        <Row>
+          <Col>
+            <h3>Job Description</h3>
+          </Col>
+        </Row>
         <Row>
           <Col md={8}>
             <Form onSubmit={this.onFormSubmit}>
@@ -114,11 +143,7 @@ class Main extends Component {
               </Button>
             </Form>
           </Col>
-          <Col md={4} className="d-flex align-items-center flex-column">
-            <h4 className="d-block">Job Guidance</h4>
-            <Structure result={structureRes} />
-            <Bias result={bias} acceptSuggestion={this.acceptBiasSuggestion} />
-          </Col>
+          {jobGuidanceView}
         </Row>
       </Container>
     );
