@@ -2,12 +2,13 @@ import React from 'react';
 import X from 'react-feather/dist/icons/x';
 import Globe from 'react-feather/dist/icons/globe';
 import classnames from 'classnames';
+import uuid from 'uuid/v4';
 import './styles.css';
 
 const Bias = ({ result, acceptSuggestion }) => {
   const suggestionItem = (onClick, textValue, bias) => (
     <span
-      key={textValue}
+      key={uuid()}
       className="suggestion"
       onClick={() => onClick(bias, textValue)}
     >
@@ -33,6 +34,7 @@ const Bias = ({ result, acceptSuggestion }) => {
         }
         return (
           <li
+            key={uuid()}
             className={classnames(
               'list-group-item position-relative',
               'biasItem'
