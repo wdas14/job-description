@@ -10,6 +10,8 @@ import {
   structure
 } from '../../utils/checkDescription';
 import './styles.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 // require.context(
 //   'file-loader?name=[path][name].[ext]&context=node_modules/tinymce!tinymce/skins',
 //   true,
@@ -78,7 +80,7 @@ class Main extends Component {
     biasWords.forEach(word => {
       html = html.replace(
         word,
-        `<span style="background-color: #f1c40f;">${word}</span>`
+        `<span style="background-color: #ffb0f2;">${word}</span>`
       );
     });
 

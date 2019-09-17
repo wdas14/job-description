@@ -2,13 +2,14 @@
   margin-left: 2px;
   margin-right: 2px;
   display: block;
+  text-decoration-line: underline;
+  font-weight: 600;
 }
 .suggestion:hover,
 .suggestion:active {
   cursor: pointer;
-  text-decoration-line: underline;
 }
-
+/* 
 .xIcon {
   position: absolute;
   right: 5px;
@@ -18,7 +19,33 @@
 .xIcon:active {
   cursor: pointer;
 }
-
+*/
 .biasItem {
-  border-top: 3px solid #f1c40f;
+  border-top: 3px solid #ffb0f2;
+}
+
+.slickContainer > button::before {
+  color: black;
+}
+.slickContainer > button.slick-prev {
+  left: -10px;
+  z-index: 1;
+}
+.slickContainer > button.slick-next {
+  right: -10px;
+}
+
+.ignoreButton {
+  color: blue;
+  text-decoration: underline;
+}
+
+.biasWord {
+  text-decoration: line-through;
+  align-self: center;
+}
+.biasLabel {
+  background-color: #d6d2d2;
+  display: inline;
+  font-size: 12px;
 }
