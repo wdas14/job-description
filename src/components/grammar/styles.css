@@ -1,0 +1,46 @@
+.suggestion {
+  margin-left: 2px;
+  margin-right: 2px;
+  display: block;
+  text-decoration-line: underline;
+  font-weight: 600;
+}
+.suggestion:hover,
+.suggestion:active {
+  cursor: pointer;
+}
+/* 
+  .xIcon {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
+  .xIcon:hover,
+  .xIcon:active {
+    cursor: pointer;
+  }
+  */
+.cardItem {
+  border-top: 3px solid #e6ffd8;
+}
+
+.slickContainer > button::before {
+  color: black;
+}
+.slickContainer > button.slick-prev {
+  left: -10px;
+  z-index: 1;
+}
+.slickContainer > button.slick-next {
+  right: -10px;
+}
+
+.ignoreButton {
+  color: blue;
+  text-decoration: underline;
+}
+
+.grammarWord {
+  text-decoration: line-through;
+  align-self: center;
+}

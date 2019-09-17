@@ -6,7 +6,7 @@ const path = require('path');
 const helmet = require('helmet');
 const compression = require('compression');
 const app = express();
-const port = 4000;
+const port = 5000;
 
 app.use(helmet());
 app.use(compression());
@@ -42,7 +42,16 @@ const checkGrammar = (req, res) => {
     });
     response.on('end', function() {
       let body_ = JSON.parse(body);
-      res.status(200).json({ result: body_ });
+      const transformBody = list =>
+        list.reduce((acc, curr) => {
+          acc[curr.token] = curr.suggestions.reduce(
+            (_acc, _curr) => [..._acc, _curr.suggestion],
+            []
+          );
+          return acc;
+        }, {});
+      const result = transformBody(body_.flaggedTokens);
+      res.status(200).json({ ...result });
     });
     response.on('error', function(e) {
       console.log('Error: ' + e.message);

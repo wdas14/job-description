@@ -81,7 +81,7 @@ const Structure = ({ result }) => {
   let structureView = null;
   if (Object.keys(result).length) {
     structureView = (
-      <div className="w-100">
+      <div className="w-100 mb-3">
         <ul className="list-group">
           <li className="list-group-item border-0">
             <FileText />

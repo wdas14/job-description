@@ -4,6 +4,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import classnames from 'classnames';
 import Structure from '../structure';
 import Bias from '../bias';
+import Grammar from '../grammar';
 import {
   getSpellingAndGrammar,
   getBias,
@@ -24,7 +25,7 @@ class Main extends Component {
     this.state = {
       html:
         'The boy go too schoo yesterday to contribute to a competitive environment and enforce kindness .',
-      grammar: null,
+      grammar: { too: ['to'], schoo: ['school'] },
       structureRes: {},
       bias: {},
       showJobGuidance: false
@@ -46,13 +47,31 @@ class Main extends Component {
     }
     this.setState({ bias: newBiasObj });
   };
+  removeGrammarSuggestion = wordToReplace => {
+    const { grammar } = this.state;
+    const newGrammarObj = { ...grammar };
+    if (newGrammarObj[wordToReplace]) {
+      delete newGrammarObj[wordToReplace];
+    }
+
+    this.setState({ grammar: newGrammarObj });
+  };
   acceptBiasSuggestion = (wordToReplace, suggestion) => {
     const { html } = this.state;
     const pattern = new RegExp(
-      `<span style="background-color: #f1c40f;">${wordToReplace}</span>`
+      `<span style="background-color: #ffb0f2;">${wordToReplace}</span>`
     );
     const updatedHtml = html.replace(pattern, suggestion);
-    this.removeBiasSuggestion(wordToReplace);
+    this.removeGrammarSuggestion(wordToReplace);
+    this.setState({ html: updatedHtml });
+  };
+  acceptGrammarSuggestion = (wordToReplace, suggestion) => {
+    const { html } = this.state;
+    const pattern = new RegExp(
+      `<span style="background-color: #e6ffd8;">${wordToReplace}</span>`
+    );
+    const updatedHtml = html.replace(pattern, suggestion);
+    this.removeGrammarSuggestion(wordToReplace);
     this.setState({ html: updatedHtml });
   };
   onFormSubmit = async e => {
@@ -60,8 +79,10 @@ class Main extends Component {
     const { html } = this.state;
     const structureRes = structure.init(html);
     const bias = getBias(html);
-    const grammar = await getSpellingAndGrammar(html);
-    const newHtml = this.highlightBias(html, bias);
+    // const grammar = await getSpellingAndGrammar(html);
+    const { grammar } = this.state;
+    let newHtml = this.highlightBias(html, bias);
+    newHtml = this.highlightGrammar(newHtml, grammar);
     this.setState({
       structureRes,
       bias,
@@ -86,25 +107,53 @@ class Main extends Component {
 
     return html;
   };
+  highlightGrammar = (html, grammar) => {
+    const grammarWords = [...Object.keys(grammar)];
+
+    grammarWords.forEach(word => {
+      html = html.replace(
+        word,
+        `<span style="background-color: #e6ffd8;">${word}</span>`
+      );
+    });
+    return html;
+  };
   onInputChange = ({ target: { value, name } }) => {
     this.setState({ [name]: value });
   };
 
   render() {
-    const { html, structureRes, bias, showJobGuidance } = this.state;
+    const { html, structureRes, bias, showJobGuidance, grammar } = this.state;
     let jobGuidanceView = null;
     if (showJobGuidance) {
       jobGuidanceView = (
-        <Col
-          md={4}
-          className={classnames(
-            'd-flex align-items-center flex-column',
-            'jobDescriptionContainer'
-          )}
-        >
-          <h4 className="d-block mt-2">Job Guidance</h4>
-          <Bias result={bias} acceptSuggestion={this.acceptBiasSuggestion} />
-          <Structure result={structureRes} />
+        <Col md={4}>
+          <Row
+            className={classnames(
+              'justify-content-center',
+              'jobSuggestionsHeader'
+            )}
+          >
+            <h4 className="d-block mt-2">Job Guidance</h4>
+          </Row>
+          <Row
+            className={classnames(
+              'align-items-center',
+              'jobSuggestionsContainer'
+            )}
+          >
+            <Col>
+              <Bias
+                result={bias}
+                acceptSuggestion={this.acceptBiasSuggestion}
+              />
+              <Grammar
+                result={grammar}
+                acceptSuggestion={this.acceptGrammarSuggestion}
+              />
+              <Structure result={structureRes} />
+            </Col>
+          </Row>
         </Col>
       );
     }
@@ -145,6 +194,7 @@ class Main extends Component {
               </Button>
             </Form>
           </Col>
+
           {jobGuidanceView}
         </Row>
       </Container>

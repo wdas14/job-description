@@ -86,7 +86,7 @@ const Bias = ({ result, acceptSuggestion }) => {
   let biasView = null;
   if (proWomenView || proMenView) {
     biasView = (
-      <div className="w-100">
+      <div className="w-100 mb-3">
         <ul className="pl-0">
           <li className="list-group-item border-0">
             <Globe />
