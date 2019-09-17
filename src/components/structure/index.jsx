@@ -1,10 +1,17 @@
 import React from 'react';
 import classnames from 'classnames';
 import FileText from 'react-feather/dist/icons/file-text';
+import Slider from 'react-slick';
 import './styles.css';
 
 const Structure = ({ result }) => {
   const { listPercentage, sentenceCountAverage, structure, wordCount } = result;
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
   let header = false;
   let paragraph = false;
 
@@ -22,6 +29,9 @@ const Structure = ({ result }) => {
         <div>
           We suggest that 1/3 of your job description should be bullet pointed.
         </div>
+        <div className="ignoreButton" color="link">
+          Ignore
+        </div>
       </li>
     );
   }
@@ -35,6 +45,9 @@ const Structure = ({ result }) => {
         <div>
           We suggest the average word count per sentencet to be less than 13.
         </div>
+        <div className="ignoreButton" color="link">
+          Ignore
+        </div>
       </li>
     );
   }
@@ -44,6 +57,9 @@ const Structure = ({ result }) => {
       <li className={classnames('list-group-item', 'structureItem')}>
         <div className="font-weight-bold">
           We suggest you have at least 3 x paragraphs/headers.
+        </div>
+        <div className="ignoreButton" color="link">
+          Ignore
         </div>
       </li>
     );
@@ -55,6 +71,9 @@ const Structure = ({ result }) => {
         <div className="font-weight-bold">Current word count: {wordCount}</div>
         <div>
           We suggest you have at least 700 words in your job description.
+        </div>
+        <div className="ignoreButton" color="link">
+          Ignore
         </div>
       </li>
     );
@@ -70,10 +89,12 @@ const Structure = ({ result }) => {
               Structure
             </div>
           </li>
-          {listSuggestion}
-          {sentenceCountSuggestion}
-          {headerSuggestion}
-          {wordCountSuggestion}
+          <Slider {...settings} className="slickContainer">
+            {wordCountSuggestion}
+            {listSuggestion}
+            {sentenceCountSuggestion}
+            {headerSuggestion}
+          </Slider>
         </ul>
       </div>
     );

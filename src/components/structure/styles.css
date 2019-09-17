@@ -1,3 +1,19 @@
 .structureItem {
   border-top: 3px solid #f1c40f;
 }
+
+.slickContainer > button::before {
+  color: black;
+}
+.slickContainer > button.slick-prev {
+  left: -10px;
+  z-index: 1;
+}
+.slickContainer > button.slick-next {
+  right: -10px;
+}
+
+.ignoreButton {
+  color: blue;
+  text-decoration: underline;
+}
