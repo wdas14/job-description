@@ -18,7 +18,7 @@ const Bias = ({ result, acceptSuggestion }) => {
     </span>
   );
   const suggestionView = results =>
-    Object.keys(results).map(biasWord => {
+    Object.keys(results).map((biasWord, index, arr) => {
       let suggestions = null;
 
       if (Array.isArray(results[biasWord])) {
@@ -62,6 +62,9 @@ const Bias = ({ result, acceptSuggestion }) => {
             >
               Ignore
             </Col>
+            <Col className="text-right font-weight-bold">{`${index + 1}/${
+              arr.length
+            }`}</Col>
           </Row>
         </li>
       );
@@ -73,18 +76,15 @@ const Bias = ({ result, acceptSuggestion }) => {
     slidesToShow: 1,
     slidesToScroll: 1
   };
-  let proMenView = null;
+
   const proMenResults = result.proMen;
-  if (proMenResults && Object.keys(proMenResults).length) {
-    proMenView = suggestionView(proMenResults);
-  }
-  let proWomenView = null;
   const proWomenResults = result.proWomen;
-  if (proWomenResults && Object.keys(proWomenResults).length) {
-    proWomenView = suggestionView(proWomenResults);
-  }
   let biasView = null;
-  if (proWomenView || proMenView) {
+  if (
+    Object.keys(proMenResults).length ||
+    Object.keys(proWomenResults).length
+  ) {
+    const resultView = suggestionView({ ...proWomenResults, ...proMenResults });
     biasView = (
       <div className="w-100 mb-3">
         <ul className="pl-0">
@@ -93,8 +93,7 @@ const Bias = ({ result, acceptSuggestion }) => {
             <div className="font-weight-bold d-inline-block ml-1">Language</div>
           </li>
           <Slider {...settings} className="slickContainer">
-            {proMenView}
-            {proWomenView}
+            {resultView}
           </Slider>
         </ul>
       </div>

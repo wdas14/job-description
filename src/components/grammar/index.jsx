@@ -18,7 +18,7 @@ const Grammar = ({ result, acceptSuggestion }) => {
     </span>
   );
   const suggestionView = results =>
-    Object.keys(results).map(wrongWord => {
+    Object.keys(results).map((wrongWord, index, arr) => {
       let suggestions = null;
 
       if (Array.isArray(results[wrongWord])) {
@@ -57,6 +57,9 @@ const Grammar = ({ result, acceptSuggestion }) => {
             >
               Ignore
             </Col>
+            <Col className="text-right font-weight-bold">{`${index + 1}/${
+              arr.length
+            }`}</Col>
           </Row>
         </li>
       );
