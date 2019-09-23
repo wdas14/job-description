@@ -8,7 +8,8 @@ import Grammar from '../grammar';
 import {
   getSpellingAndGrammar,
   getBias,
-  structure
+  structure,
+  cleanMarkup
 } from '../../utils/checkDescription';
 import './styles.css';
 import 'slick-carousel/slick/slick.css';
@@ -23,8 +24,19 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      html:
-        'The boy go too schoo yesterday to contribute to a competitive environment and enforce kindness .',
+      html: `<p><strong>Junir Node Devloper</strong></p>
+      <p>Tec partners are working with an early stage start-up in the FinTech / PropTech secto.</p>
+      <p>Based in Cntral London (Shoreditch) they have raised several million in funding and are now looking to scale their team.</p>
+      <p>Our client is single handedly driving change within the letting market. It is no secret the letting market is expensive and the route too getting onto the property ladder for most is distorted. Enter our client who are driving the cost of letting down.</p>
+      <p>To help continue driving and manage this business forward they require an outstanding Node Developer to enter the team. The team is supportive ,&nbsp; and passionate about driving change in the letting market.</p>
+      <p>&nbsp;</p>
+      <p><strong><em>BENEFITS for the Junior NODE DEVELOPER</em></strong></p>
+      <ul>
+      <li>Flexible working hours and remote working</li>
+      <li>28 days holiday + Bank Holidays</li>
+      <li>Share Options</li>
+      <li>Competitive Salary</li>
+      </ul>`,
       grammar: {},
       structureRes: {},
       bias: {},
@@ -79,7 +91,7 @@ class Main extends Component {
     const { html } = this.state;
     const structureRes = structure.init(html);
     const bias = getBias(html);
-    const grammar = await getSpellingAndGrammar(html);
+    const grammar = await getSpellingAndGrammar(cleanMarkup(html));
     let newHtml = this.highlightBias(html, bias);
     newHtml = this.highlightGrammar(newHtml, grammar);
     this.setState({
@@ -122,6 +134,7 @@ class Main extends Component {
   };
 
   render() {
+    console.log(this.state.html);
     const { html, structureRes, bias, showJobGuidance, grammar } = this.state;
     let jobGuidanceView = null;
     if (showJobGuidance) {
