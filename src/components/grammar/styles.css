@@ -8,17 +8,7 @@
 .suggestion:active {
   cursor: pointer;
 }
-/* 
-  .xIcon {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-  }
-  .xIcon:hover,
-  .xIcon:active {
-    cursor: pointer;
-  }
-  */
+
 .cardItem {
   border-top: 3px solid #e6ffd8;
 }
@@ -32,11 +22,6 @@
 }
 .slickContainer > button.slick-next {
   right: -10px;
-}
-
-.ignoreButton {
-  color: blue;
-  text-decoration: underline;
 }
 
 .grammarWord {

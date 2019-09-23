@@ -54,19 +54,6 @@ const Grammar = ({ result, acceptSuggestion }) => {
             <Col className="text-right font-weight-bold d-flex flex-column justify-content-end">{`${index +
               1}/${arr.length}`}</Col>
           </Row>
-
-          {/* <Row>
-            <Col
-              className="ignoreButton"
-              color="link"
-              onClick={() => acceptSuggestion(wrongWord, wrongWord)}
-            >
-              Ignore
-            </Col>
-            <Col className="text-right font-weight-bold">{`${index + 1}/${
-              arr.length
-            }`}</Col>
-          </Row> */}
         </li>
       );
     });
