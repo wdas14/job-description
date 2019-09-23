@@ -25,7 +25,7 @@ class Main extends Component {
     this.state = {
       html:
         'The boy go too schoo yesterday to contribute to a competitive environment and enforce kindness .',
-      grammar: { too: ['to'], schoo: ['school'] },
+      grammar: {},
       structureRes: {},
       bias: {},
       showJobGuidance: false
@@ -76,10 +76,10 @@ class Main extends Component {
   };
   onFormSubmit = async e => {
     e.preventDefault();
-    const { html, grammar } = this.state;
+    const { html } = this.state;
     const structureRes = structure.init(html);
     const bias = getBias(html);
-    // const grammar = await getSpellingAndGrammar(html);
+    const grammar = await getSpellingAndGrammar(html);
     let newHtml = this.highlightBias(html, bias);
     newHtml = this.highlightGrammar(newHtml, grammar);
     this.setState({
