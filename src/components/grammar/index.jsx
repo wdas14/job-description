@@ -44,7 +44,7 @@ const Grammar = ({ result, acceptSuggestion }) => {
           <Row>
             <Col className="grammarWord">{wrongWord}</Col>
           </Row>
-          <Row>
+          <Row className="mt-3">
             <Col>
               <i>Did you mean</i>
               <span className="suggestedWord">{suggestions}</span>?

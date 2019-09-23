@@ -45,7 +45,7 @@ const Bias = ({ result, acceptSuggestion }) => {
           <Row>
             <Col className="biasWord">{biasWord}</Col>
           </Row>
-          <Row>
+          <Row className="mt-3">
             <Col>
               {`This is considered a `}
               <i>
