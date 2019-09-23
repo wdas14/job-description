@@ -13,24 +13,34 @@ const Structure = ({ result }) => {
     slidesToShow: 1,
     slidesToScroll: 1
   };
-  let count = 0;
-  const resultLen = Object.keys(result).length;
-
   let header = false;
   let paragraph = false;
   if (structure) {
     header = structure.header;
     paragraph = structure.paragraph;
   }
+  let count = 0;
+  let resultLen = 0;
+  if (listPercentage <= 33 || listPercentage >= 45) {
+    resultLen++;
+  }
+  if (sentenceCountAverage <= 13) {
+    resultLen++;
+  }
+  if (!header || !paragraph) {
+    resultLen++;
+  }
+  if (wordCount < 700) {
+    resultLen++;
+  }
+
   let listSuggestion = null;
   if (listPercentage <= 33 || listPercentage >= 45) {
     count++;
     listSuggestion = (
       <li className={classnames('list-group-item', 'structureItem')}>
         <Row>
-          <Col className="font-weight-bold">
-            Current list percentage: {listPercentage}
-          </Col>
+          <Col>Current list percentage: {listPercentage}</Col>
         </Row>
 
         <Row>
@@ -41,9 +51,6 @@ const Structure = ({ result }) => {
         </Row>
 
         <Row>
-          <Col className="ignoreButton" color="link">
-            Ignore
-          </Col>
           <Col className="text-right font-weight-bold">{`${count}/${resultLen}`}</Col>
         </Row>
       </li>
@@ -54,7 +61,7 @@ const Structure = ({ result }) => {
     count++;
     sentenceCountSuggestion = (
       <li className={classnames('list-group-item', 'structureItem')}>
-        <Row className="font-weight-bold">
+        <Row>
           <Col> Current sentence word count: {sentenceCountAverage}</Col>
         </Row>
 
@@ -65,9 +72,6 @@ const Structure = ({ result }) => {
         </Row>
 
         <Row>
-          <Col className="ignoreButton" color="link">
-            Ignore
-          </Col>
           <Col className="text-right font-weight-bold">{`${count}/${resultLen}`}</Col>
         </Row>
       </li>
@@ -79,15 +83,10 @@ const Structure = ({ result }) => {
     headerSuggestion = (
       <li className={classnames('list-group-item', 'structureItem')}>
         <Row>
-          <Col className="font-weight-bold">
-            We suggest you have at least 3 x paragraphs/headers.
-          </Col>
+          <Col>We suggest you have at least 3 x paragraphs/headers.</Col>
         </Row>
 
         <Row>
-          <Col className="ignoreButton" color="link">
-            Ignore
-          </Col>
           <Col className="text-right font-weight-bold">{`${count}/${resultLen}`}</Col>
         </Row>
       </li>
@@ -99,9 +98,7 @@ const Structure = ({ result }) => {
     wordCountSuggestion = (
       <li className={classnames('list-group-item', 'structureItem')}>
         <Row>
-          <Col className="font-weight-bold">
-            Current word count: {wordCount}
-          </Col>
+          <Col>Current word count: {wordCount}</Col>
         </Row>
 
         <Row>
@@ -111,32 +108,25 @@ const Structure = ({ result }) => {
         </Row>
 
         <Row>
-          <Col className="ignoreButton" color="link">
-            Ignore
-          </Col>
           <Col className="text-right font-weight-bold">{`${count}/${resultLen}`}</Col>
         </Row>
       </li>
     );
   }
   let structureView = null;
-  if (Object.keys(result).length) {
+  if (resultLen) {
     structureView = (
       <div className="w-100 mb-3">
-        <ul className="list-group">
-          <li className="list-group-item border-0">
-            <FileText />
-            <div className="font-weight-bold d-inline-block ml-1">
-              Structure
-            </div>
-          </li>
-          <Slider {...settings} className="slickContainer">
-            {listSuggestion}
-            {sentenceCountSuggestion}
-            {headerSuggestion}
-            {wordCountSuggestion}
-          </Slider>
-        </ul>
+        <div className="mb-2 mt-3">
+          <FileText />
+          <div className="font-weight-bold d-inline-block ml-1">Structure</div>
+        </div>
+        <Slider {...settings} className="slickContainer">
+          {listSuggestion}
+          {sentenceCountSuggestion}
+          {headerSuggestion}
+          {wordCountSuggestion}
+        </Slider>
       </div>
     );
   }

@@ -95,15 +95,15 @@ export const structure = (() => {
   };
 
   const listPercentage = html => {
-    return (
-      ((html.match(re.li) || [])
+    const listWordLength = (html.match(re.li) || [])
+      .map(item => cleanMarkup(item).split(' ').length)
+      .reduce((sum, current) => sum + current, 0);
+    const paragraphWordLenght =
+      (html.match(re.p) || [])
         .map(item => cleanMarkup(item).split(' ').length)
-        .reduce((sum, current) => sum + current, 0) /
-        (html.match(re.p) || [])
-          .map(item => cleanMarkup(item).split(' ').length)
-          .reduce((sum, current) => sum + current, 0)) *
-      100
-    ).toFixed(1);
+        .reduce((sum, current) => sum + current, 0) || 1;
+    const result = (listWordLength / paragraphWordLenght) * 100;
+    return result.toFixed(1);
   };
 
   const structure = html => ({

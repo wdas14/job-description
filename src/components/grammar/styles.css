@@ -1,7 +1,6 @@
 .suggestion {
   margin-left: 2px;
   margin-right: 2px;
-  display: block;
   text-decoration-line: underline;
   font-weight: 600;
 }
@@ -41,6 +40,14 @@
 }
 
 .grammarWord {
-  text-decoration: line-through;
   align-self: center;
+  font-weight: bold;
+}
+.suggestedWord {
+  color: blue;
+  text-decoration: underline;
+}
+.slideCount {
+  position: absolute;
+  top: -20px;
 }

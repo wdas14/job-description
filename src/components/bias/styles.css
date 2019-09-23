@@ -1,9 +1,11 @@
 .suggestion {
   margin-left: 2px;
   margin-right: 2px;
-  display: block;
   text-decoration-line: underline;
   font-weight: 600;
+}
+.suggestion > span {
+  color: blue;
 }
 .suggestion:hover,
 .suggestion:active {
@@ -41,11 +43,14 @@
 }
 
 .biasWord {
-  text-decoration: line-through;
   align-self: center;
+  font-weight: bold;
 }
 .biasLabel {
   background-color: #d6d2d2;
   display: inline;
   font-size: 12px;
+}
+.genderSpecific {
+  text-decoration: underline;
 }

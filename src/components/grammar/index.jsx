@@ -43,13 +43,19 @@ const Grammar = ({ result, acceptSuggestion }) => {
         >
           <Row>
             <Col className="grammarWord">{wrongWord}</Col>
+          </Row>
+          <Row>
             <Col>
-              <i>Suggestions:</i>
-              {suggestions}
+              <i>Did you mean</i>
+              <span className="suggestedWord">{suggestions}</span>?
             </Col>
           </Row>
-
           <Row>
+            <Col className="text-right font-weight-bold d-flex flex-column justify-content-end">{`${index +
+              1}/${arr.length}`}</Col>
+          </Row>
+
+          {/* <Row>
             <Col
               className="ignoreButton"
               color="link"
@@ -60,7 +66,7 @@ const Grammar = ({ result, acceptSuggestion }) => {
             <Col className="text-right font-weight-bold">{`${index + 1}/${
               arr.length
             }`}</Col>
-          </Row>
+          </Row> */}
         </li>
       );
     });
@@ -76,17 +82,15 @@ const Grammar = ({ result, acceptSuggestion }) => {
   if (Object.keys(result).length) {
     grammarView = (
       <div className="w-100 mb-3">
-        <ul className="pl-0">
-          <li className="list-group-item border-0">
-            <AlignLeft />
-            <div className="font-weight-bold d-inline-block ml-1">
-              Spelling and grammar
-            </div>
-          </li>
-          <Slider {...settings} className="slickContainer">
-            {suggestionView(result)}
-          </Slider>
-        </ul>
+        <div className="mb-2 mt-3">
+          <AlignLeft />
+          <div className="font-weight-bold d-inline-block ml-1">
+            Spelling and grammar
+          </div>
+        </div>
+        <Slider {...settings} className="slickContainer">
+          {suggestionView(result)}
+        </Slider>
       </div>
     );
   }

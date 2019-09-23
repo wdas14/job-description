@@ -9,14 +9,15 @@ import './styles.css';
 
 const Bias = ({ result, acceptSuggestion }) => {
   const suggestionItem = (onClick, textValue, bias) => (
-    <span
+    <li
       key={uuid()}
       className="suggestion"
       onClick={() => onClick(bias, textValue)}
     >
-      {textValue}
-    </span>
+      <span>{textValue}</span>
+    </li>
   );
+
   const suggestionView = results =>
     Object.keys(results).map((biasWord, index, arr) => {
       let suggestions = null;
@@ -42,29 +43,24 @@ const Bias = ({ result, acceptSuggestion }) => {
           )}
         >
           <Row>
-            <Col>
-              <span className="biasLabel">Gender Inclusive</span>
-            </Col>
-          </Row>
-          <Row>
             <Col className="biasWord">{biasWord}</Col>
+          </Row>
+          <Row>
             <Col>
-              <i>Suggestions:</i>
-              {suggestions}
+              {`This is considered a `}
+              <i>
+                <u>gender specific</u>
+              </i>
+              {` word. Why not use one of this
+              instead:`}
             </Col>
           </Row>
-
           <Row>
-            <Col
-              className="ignoreButton"
-              color="link"
-              onClick={() => acceptSuggestion(biasWord, biasWord)}
-            >
-              Ignore
+            <Col>
+              <ul className="pl-3 mt-1">{suggestions}</ul>
             </Col>
-            <Col className="text-right font-weight-bold">{`${index + 1}/${
-              arr.length
-            }`}</Col>
+            <Col className="text-right font-weight-bold d-flex flex-column justify-content-end">{`${index +
+              1}/${arr.length}`}</Col>
           </Row>
         </li>
       );
@@ -87,15 +83,13 @@ const Bias = ({ result, acceptSuggestion }) => {
     const resultView = suggestionView({ ...proWomenResults, ...proMenResults });
     biasView = (
       <div className="w-100 mb-3">
-        <ul className="pl-0">
-          <li className="list-group-item border-0">
-            <Globe />
-            <div className="font-weight-bold d-inline-block ml-1">Language</div>
-          </li>
-          <Slider {...settings} className="slickContainer">
-            {resultView}
-          </Slider>
-        </ul>
+        <div className="mb-2 mt-3">
+          <Globe />
+          <div className="font-weight-bold d-inline-block ml-1">Language</div>
+        </div>
+        <Slider {...settings} className="slickContainer">
+          {resultView}
+        </Slider>
       </div>
     );
   }
